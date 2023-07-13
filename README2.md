@@ -17,5 +17,4 @@ rlang::last_trace()
 
 #Dúvidas:
 renomear as pacientes p/ paciente 1,2,3
-Nome da escala de cor
 ordenar a escala do size
