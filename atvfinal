@@ -1,0 +1,38 @@
+# Pacotes
+install.packages("ggplot2")
+install.packages("readxl")
+
+# Bibliotecas
+library(ggplot2)
+library(readxl)
+
+# Diretório
+setwd("C:/Users/Usuario/Documents/banco de dados artigo imuno")
+
+# Duvida sobre a função read
+?read_excel
+
+# Chamando o arquivo
+dadosleticia <- read_excel("puerperas_com_covid_19.07.xlsx")
+
+# Fazendo o gráfico de boxplot e de pontos
+plot <- ggplot(dadosleticia, aes(x = as.factor(VAC_COVD_DOSES), y = CD19, fill = as.factor(VAC_COVD_DOSES))) +
+  labs(x = "VACCINES", y = "CD19", title = "CD19 EXPRESSION IN VACCINATED AND NON-VACCINATED PUERPER WOMEN") +
+  geom_boxplot(alpha = 0.2) +
+  geom_point(position = position_jitter(width = 0.15), aes(colour = factor(VAC_COVD_DOSES)), size = 3, alpha = 0.7) +
+  scale_fill_manual(values = c("purple", "pink", "blue"),
+                    labels = c("1 dose", "2 doses", "Não vacinadas"),
+                    guide = guide_legend(title = " ")) +
+  scale_colour_manual(values = c("purple", "pink", "blue"),
+                      labels = c("1 dose", "2 doses", "Não vacinadas"),
+                      guide = guide_legend(title = " ")) +
+  theme(axis.text = element_text(size = 14, color = "black"),
+        axis.title = element_text(size = 14, color = "black"),
+        panel.background = element_rect(fill = "white"),
+        axis.line = element_line(color = "black"),
+        plot.title = element_text(size = 8, face = "bold", hjust = 0.5))  # Reduzindo o tamanho do título para 10 pontos
+
+print(plot)
+
+# Salvando o gráfico em PDF com as dimensões desejadas
+ggsave("plot20.pdf", plot, width = 6.02, height = 3.79, units = "in", dpi = 300)
